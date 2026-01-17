@@ -179,7 +179,9 @@ public class StatusWebServer : IHostedService, IDisposable
         
         html.AppendLine("            <div class='config-item'>");
         html.AppendLine("                <span class='config-label'>Plex Server URL</span>");
-        html.AppendLine($"                <span class='config-value'><span class='status-icon {(hasPlexUrl ? "status-ok" : "status-error")}'></span>{(hasPlexUrl ? plexUrl : "Not Set")}</span>");
+        // Mask the URL to hide internal network details, only show if it's set
+        string maskedPlexUrl = hasPlexUrl ? "Configured (hidden for security)" : "Not Set";
+        html.AppendLine($"                <span class='config-value'><span class='status-icon {(hasPlexUrl ? "status-ok" : "status-error")}'></span>{maskedPlexUrl}</span>");
         html.AppendLine("            </div>");
         
         html.AppendLine("            <div class='config-item'>");
@@ -189,12 +191,12 @@ public class StatusWebServer : IHostedService, IDisposable
         
         html.AppendLine("            <div class='config-item'>");
         html.AppendLine("                <span class='config-label'>Lavalink Host</span>");
-        html.AppendLine($"                <span class='config-value'><span class='status-icon status-ok'></span>{lavalinkHost}</span>");
+        html.AppendLine($"                <span class='config-value'><span class='status-icon status-ok'></span>{lavalinkHost} (not validated)</span>");
         html.AppendLine("            </div>");
         
         html.AppendLine("            <div class='config-item'>");
         html.AppendLine("                <span class='config-label'>Lavalink Port</span>");
-        html.AppendLine($"                <span class='config-value'><span class='status-icon status-ok'></span>{lavalinkPort}</span>");
+        html.AppendLine($"                <span class='config-value'><span class='status-icon status-ok'></span>{lavalinkPort} (not validated)</span>");
         html.AppendLine("            </div>");
         
         html.AppendLine("            <div class='config-item'>");

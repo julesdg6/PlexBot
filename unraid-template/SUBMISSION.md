@@ -51,24 +51,18 @@ From their README, they mention:
 - Not fully AI written
 - Be attributed to a GitHub account with an active history
 
-### Option 2: Create Your Own Template Repository
+### Option 2: Host Templates in This Repository
 
-You can host the templates directly in this repository and users can add it to their unRAID Community Applications.
+The templates are already hosted in this repository. Users can install them using the direct template URLs (see Option 3 below).
 
-#### Steps:
+#### What's Already Done:
 
-1. Templates are already in `unraid-template/` directory ✓
-2. Icon is already in `Images/plexbot-unraid-icon.png` ✓
-3. Ensure the repository is public ✓
+1. Templates are in `unraid-template/` directory ✓
+2. Icon is in `Images/plexbot-unraid-icon.png` ✓
+3. Repository is public ✓
+4. TemplateURL fields point to the correct raw GitHub URLs ✓
 
-Users can then add this repository to their unRAID Community Applications:
-
-1. In unRAID, go to **Apps** → **App Install Options**
-2. Add template repository URL:
-   ```
-   https://github.com/julesdg6/plexbot
-   ```
-3. The templates will appear in the Apps page
+Users can install PlexBot using the direct template URLs without needing to add this repository to Community Applications.
 
 ### Option 3: Direct Template URL
 

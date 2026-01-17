@@ -69,7 +69,6 @@ If port 8080 or 2333 is already in use by another application:
 6. Keep the **Container Port** (right side) at the default value
 7. Click **Apply** to restart the container
 8. Access the web UI using the new port: `http://YOUR_SERVER_IP:[New Host Port]`
-6. Refresh the web UI to verify all settings are green ✅
 
 ## Solved Problem: No More Crash Loops!
 

@@ -65,39 +65,57 @@ docker run -d \
 The default `docker-compose.yml` sets up two services:
 
 ```yaml
-version: '3'
+version: '3.9'
 services:
   plexbot:
     build:
-      context: .
-      dockerfile: ./Install/Docker/dockerfile
+      context: ../..
+      dockerfile: Install/Docker/dockerfile
     restart: unless-stopped
     volumes:
-      - ./data:/app/data
+      - ../..:/source
+      - ../../data:/app/data
+      - ../../logs:/app/logs
+      - ../../.env:/app/.env
     depends_on:
       - lavalink
     env_file:
-      - .env
+      - ../../.env
+    networks:
+      - plexbot-network
 
   lavalink:
-    image: fredboat/lavalink:latest
+    image: ghcr.io/lavalink-devs/lavalink:4
     restart: unless-stopped
     volumes:
-      - ./Install/Lavalink/application.yml:/opt/Lavalink/application.yml
+      - ./lavalink.application.yml:/opt/Lavalink/application.yml
+      - ./plugins:/opt/Lavalink/plugins
+    ports:
+      - "2333:2333"
+    networks:
+      - plexbot-network
+
+networks:
+  plexbot-network:
+    driver: bridge
 ```
 
 ### Key Components:
 
 - **PlexBot Service**:
   - Built from the local Dockerfile
-  - Persistent data through volume mount
+  - Persistent data through volume mounts (data, logs, source code)
   - Environment variables from `.env` file
   - Auto-restarts unless manually stopped
+  - Connected to plexbot-network for communication with Lavalink
 
 - **Lavalink Service**:
-  - Uses official Fredboat Lavalink image
-  - Custom configuration through mounted `application.yml`
+  - Uses official Lavalink Devs image (version 4)
+  - Custom configuration through mounted `lavalink.application.yml`
+  - Plugins directory for Lavalink extensions
+  - Exposes port 2333 for audio streaming
   - Auto-restarts unless manually stopped
+  - Connected to plexbot-network for communication with PlexBot
 
 ## Dockerfile Analysis
 
@@ -147,8 +165,12 @@ Docker volumes preserve data between container restarts:
 
 | Container Path | Host Path | Purpose |
 |----------------|-----------|---------|
-| `/app/data` | `./data` | Persistent bot data storage |
-| `/opt/Lavalink/application.yml` | `./Install/Lavalink/application.yml` | Lavalink configuration |
+| `/source` | `../..` (project root) | Source code for live updates |
+| `/app/data` | `../../data` | Persistent bot data storage |
+| `/app/logs` | `../../logs` | Application logs |
+| `/app/.env` | `../../.env` | Environment configuration file |
+| `/opt/Lavalink/application.yml` | `./lavalink.application.yml` | Lavalink configuration |
+| `/opt/Lavalink/plugins` | `./plugins` | Lavalink plugins directory |
 
 ## Managing Docker Containers
 

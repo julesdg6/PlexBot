@@ -92,7 +92,7 @@ namespace PlexBot.Utils
         }
 
         /// <summary>Internal thread loop for periodically saving logs to file without blocking application execution</summary>
-        private static void LogSaveInternalLoop()
+        private static async void LogSaveInternalLoop()
         {
             while (true)
             {
@@ -101,7 +101,7 @@ namespace PlexBot.Utils
                     // Save any pending logs
                     SaveLogsToFileOnce();
                     // Wait for the next save interval
-                    Thread.Sleep(15000);  // 15 seconds
+                    await Task.Delay(15000);  // 15 seconds
                 }
                 catch (ThreadInterruptedException)
                 {

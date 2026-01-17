@@ -33,12 +33,6 @@ public class PlayerService(VisualPlayerStateManager stateManager, IAudioService 
             // Determine channel behavior based on connectToVoiceChannel parameter
             PlayerChannelBehavior channelBehavior = connectToVoiceChannel ? PlayerChannelBehavior.Join : PlayerChannelBehavior.None;
             PlayerRetrieveOptions retrieveOptions = new(channelBehavior);
-            // Create player factory
-            ValueTask<CustomLavaLinkPlayer> CreatePlayerAsync(IPlayerProperties<CustomLavaLinkPlayer, CustomPlayerOptions> properties,
-                IServiceProvider serviceProvider, CancellationToken token = default)
-            {
-                return ValueTask.FromResult(new CustomLavaLinkPlayer(properties, serviceProvider));
-            }
             float defaultVolume = 0.2f;
             // Create player options
             CustomPlayerOptions playerOptions = new()
@@ -163,7 +157,8 @@ public class PlayerService(VisualPlayerStateManager stateManager, IAudioService 
         }
         try
         {
-            ITextChannel? channel = interaction.GetOriginalResponseAsync().Result.Channel as ITextChannel;
+            IUserMessage originalResponse = await interaction.GetOriginalResponseAsync();
+            ITextChannel? channel = originalResponse.Channel as ITextChannel;
             stateManager.CurrentPlayerChannel = channel ?? throw new InvalidOperationException("CurrentPlayerChannel is not set");
             List<Track> trackList = tracks.ToList();
             int totalCount = trackList.Count;

@@ -29,6 +29,12 @@
     ⚙️ SETUP REQUIRED:&#xD;
     • Discord bot token (get from https://discord.com/developers/applications)&#xD;
     • Plex server URL and authentication token&#xD;
+    • After starting, visit the web UI for configuration status&#xD;
+    [br][br]&#xD;
+    🌐 WEB INTERFACE:&#xD;
+    • Configuration Dashboard: View and verify all settings via web UI&#xD;
+    • Real-time Status: Monitor container health and configuration status&#xD;
+    • Accessible at http://[SERVER_IP]:8080 after container starts&#xD;
     [br][br]&#xD;
     📚 Complete documentation: https://github.com/julesdg6/plexbot&#xD;
     📖 Unraid Setup Guide: https://github.com/julesdg6/plexbot/blob/main/unraid-template/UNRAID-SETUP-GUIDE.md&#xD;
@@ -37,7 +43,7 @@
     ✨ ALL-IN-ONE CONTAINER: This template includes both PlexBot and Lavalink in a single container - no separate Lavalink container needed!
   </Overview>
   <Category>MediaApp:Music Status:Stable</Category>
-  <WebUI/>
+  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/julesdg6/plexbot/main/unraid-template/plexbot-combined.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/julesdg6/plexbot/main/Images/plexbot-unraid-icon.png</Icon>
   <ExtraParams/>
@@ -64,4 +70,5 @@
   <Config Name="Data Directory" Target="/app/data" Default="/mnt/user/appdata/plexbot/data" Mode="rw" Description="Directory for PlexBot persistent data." Type="Path" Display="always" Required="true" Mask="false"/>
   <Config Name="Logs Directory" Target="/app/logs" Default="/mnt/user/appdata/plexbot/logs" Mode="rw" Description="Directory for PlexBot log files." Type="Path" Display="always" Required="true" Mask="false"/>
   <Config Name="Lavalink Port" Target="2333" Default="2333" Mode="tcp" Description="Lavalink server port (internal service, typically doesn't need external access)." Type="Port" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Status Web UI Port" Target="8080" Default="8080" Mode="tcp" Description="Web interface port for monitoring container status and configuration." Type="Port" Display="always" Required="true" Mask="false"/>
 </Container>

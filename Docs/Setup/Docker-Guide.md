@@ -42,6 +42,24 @@ chmod +x ./Install/linux-install.sh
 ./Install/linux-install.sh
 ```
 
+### Using Pre-built Images
+
+Instead of building from source, you can use the pre-built images from GitHub Container Registry:
+
+```bash
+# Pull the latest PlexBot image
+docker pull ghcr.io/julesdg6/plexbot:latest
+
+# Run manually (not recommended - use docker-compose instead)
+docker run -d \
+  --name plexbot \
+  --env-file .env \
+  --network plexbot-network \
+  ghcr.io/julesdg6/plexbot:latest
+```
+
+**Important:** The Docker image is `ghcr.io/julesdg6/plexbot:latest`, NOT the GitHub repository URL (`https://github.com/julesdg6/plexbot`). Using the GitHub URL will result in an "invalid reference format" error.
+
 ## Docker Compose Configuration
 
 The default `docker-compose.yml` sets up two services:
@@ -260,6 +278,22 @@ dotnet PlexBot.dll
 - **Volume Permissions**: Ensure proper file permissions on mounted volumes
 
 ## Troubleshooting Docker Issues
+
+### "docker: invalid reference format" Error
+
+This error occurs when trying to use a GitHub repository URL instead of the actual Docker image name.
+
+**❌ INCORRECT:**
+```bash
+docker run ... 'https://github.com/julesdg6/plexbot'
+```
+
+**✅ CORRECT:**
+```bash
+docker run ... ghcr.io/julesdg6/plexbot:latest
+```
+
+**Explanation:** Docker images are hosted on container registries (like Docker Hub, GitHub Container Registry, etc.), not on GitHub repository pages. The PlexBot Docker image is available at `ghcr.io/julesdg6/plexbot:latest`.
 
 ### Container Fails to Start
 

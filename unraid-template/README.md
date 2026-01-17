@@ -2,6 +2,8 @@
 
 This directory contains the unRAID Community Applications templates for PlexBot.
 
+> **📖 Complete Setup Guide:** See [UNRAID-SETUP-GUIDE.md](./UNRAID-SETUP-GUIDE.md) for detailed answers to all Unraid Docker configuration questions including Name, Repository, Registry URL, Icon URL, Network Type, and all other required fields.
+
 ## Deployment Options
 
 **Choose one of the following deployment methods:**

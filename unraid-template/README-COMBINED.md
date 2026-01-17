@@ -2,6 +2,8 @@
 
 This is a simplified, single-container deployment option for Unraid users who prefer everything in one container.
 
+> **📖 Complete Setup Guide:** See [UNRAID-SETUP-GUIDE.md](./UNRAID-SETUP-GUIDE.md) for detailed answers to all Unraid Docker configuration questions.
+
 ## What's Included
 
 This combined container includes:

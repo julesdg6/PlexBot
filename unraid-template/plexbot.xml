@@ -2,7 +2,7 @@
 <Container version="2">
   <Name>PlexBot</Name>
   <Repository>ghcr.io/julesdg6/plexbot:latest</Repository>
-  <Registry>https://github.com/julesdg6/plexbot/pkgs/container/plexbot</Registry>
+  <Registry>https://ghcr.io</Registry>
   <Network>bridge</Network>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>

@@ -128,6 +128,23 @@ If you experience connection issues:
 - Check your unRAID server has sufficient resources
 - Verify network connectivity to Plex server
 
+### "docker: invalid reference format" error
+If you're trying to run PlexBot manually with `docker run` and getting this error, ensure you're using the correct image name:
+
+**❌ INCORRECT:**
+```bash
+docker run ... 'https://github.com/julesdg6/plexbot'
+```
+
+**✅ CORRECT:**
+```bash
+docker run ... ghcr.io/julesdg6/plexbot:latest
+```
+
+**Note:** The GitHub repository URL (`https://github.com/julesdg6/plexbot`) is NOT a Docker image. The Docker image is hosted on GitHub Container Registry at `ghcr.io/julesdg6/plexbot:latest`.
+
+For unRAID users, it's recommended to use the unRAID template instead of running `docker run` manually. The templates handle all the configuration automatically.
+
 ## Additional Resources
 
 - [PlexBot Documentation](https://github.com/julesdg6/plexbot)

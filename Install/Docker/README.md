@@ -59,7 +59,7 @@ Key environment variables in your `.env` file:
 - `PLEX_TOKEN` - Your Plex authentication token
 - `LAVALINK_HOST` - Hostname for Lavalink (default: `lavalink`)
 - `LAVALINK_SERVER_PASSWORD` - Password for Lavalink (must match `lavalink.application.yml`)
-- `LAVALINK_SERVER_PORT` - Lavalink port (default: 2333)
+- `SERVER_PORT` - Lavalink port (default: 2333)
 
 ### Lavalink Plugins
 

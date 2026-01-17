@@ -14,7 +14,7 @@ When adding PlexBot to Unraid, you'll be asked the following questions. Here are
 | **Repository** | `ghcr.io/julesdg6/plexbot:combined` | DO NOT change - this is the Docker image location |
 | **Registry URL** | `https://ghcr.io` | GitHub Container Registry |
 | **Icon URL** | `https://raw.githubusercontent.com/julesdg6/plexbot/main/Images/plexbot-unraid-icon.png` | PlexBot logo |
-| **WebUI** | *(leave empty)* | PlexBot has no web interface |
+| **WebUI** | `http://[SERVER_IP]:4303/` | Built-in status dashboard that verifies required configuration (see the WebUI guide for details) |
 | **Extra Parameters** | *(leave empty for all-in-one)* | For separate containers: `--network=plexbot-network` |
 | **Post Arguments** | *(leave empty)* | Not required |
 | **Network Type** | `Bridge` | Standard Docker bridge network |
@@ -150,6 +150,18 @@ You MUST configure these settings:
 - **Default:** `/mnt/user/appdata/plexbot/logs`
 - **Recommendation:** Keep the default unless you have specific needs
 
+### Step 3.5: Confirm the template you loaded contains the new fields
+
+If you have installed PlexBot before, your Unraid server may still be using the older template that contains no ports, no WebUI entry, and no `<Config>` definitions for Discord/Plex/Lavalink variables. Make sure the new template is actually loaded:
+
+1. Stop/remove the existing PlexBot container.
+2. Delete any outdated template file from `/boot/config/plugins/dockerMan/templates-user/` (e.g., `my-PlexBot-AllInOne.xml` or a stale `PlexBot-AllInOne` entry).
+3. Copy `unraid-template/plexbot-combined.xml` from this repository to that directory (you can rename it to `PlexBot-AllInOne.xml`), or reload the Template URL listed in **Step 1**.
+4. Return to the Docker tab, click **Add Container**, and choose the refreshed template; the `App Options` section now lists `Discord Bot Token`, `Plex URL`, `Lavalink Password`, `Status Web UI Host Port`, and the other required fields without needing to manually add variables.
+5. If Unraid still shows the old version, refresh DockerMan's templates via **Templates > Update Repositories** or restart the Docker service so the new `<Config>` definitions take effect.
+
+Once the fresh template loads, the status dashboard at `http://[SERVER_IP]:4303/` appears thanks to the `<WebUI>` entry, and the configuration fields become editable just like any other app template.
+
 ### Step 4: Configure Optional Settings
 
 These settings can be customized but have sensible defaults:
@@ -222,10 +234,10 @@ These settings can be customized but have sensible defaults:
 - **Optional:** Yes, but makes the container easier to identify
 
 ### WebUI
-- **What it is:** URL for web-based management interface
-- **Value for PlexBot:** *(empty)*
-- **Why empty:** PlexBot is configured via Discord, not a web UI
-- **Note:** Some containers have WebUI (like Plex itself), PlexBot doesn't
+- **What it is:** URL for web-based interface that appears as the globe icon in the Docker tab
+- **Value for PlexBot:** `http://[SERVER_IP]:4303/`
+- **Why this exists:** PlexBot now ships with a read-only status dashboard that highlights which environment variables are configured (Discord token, Plex URL/token, Lavalink password). The Unraid WebUI button opens that status page so you can see what still needs to be filled in.
+- **Tip:** If you change the host port mapping, edit the **Status Web UI Host Port** field in the template to match, and the WebUI button will follow the new port.
 
 ### Extra Parameters
 - **What it is:** Additional Docker run arguments
@@ -487,8 +499,8 @@ For Lavalink tuning:
 - **Repository** = the full Docker image path (`ghcr.io/julesdg6/plexbot:combined`)
 - **Registry URL** = just the registry domain (`https://ghcr.io`)
 
-### Q: Why doesn't PlexBot have a WebUI?
-**A:** PlexBot is a Discord bot - all interaction happens through Discord commands and the player interface. No web UI is needed.
+### Q: Why doesn't PlexBot have a full WebUI?
+**A:** PlexBot is still configured through Discord commands, but the container now exposes a read-only status dashboard (default host port 4303) that shows whether the required environment variables are set. The WebUI button in Unraid opens that dashboard so you can check configuration status without digging into logs.
 
 ### Q: Can I run multiple instances of PlexBot?
 **A:** Yes, but each needs:
@@ -534,6 +546,6 @@ This guide covers everything you need to configure PlexBot on Unraid. The key po
 3. **Required fields:** Discord token, Plex URL, Plex token
 4. **Network type:** Bridge (standard)
 5. **No privileged access** needed
-6. **No WebUI** - configure through Discord
+6. **Status dashboard** - use the WebUI button (port 4303) to verify configuration
 
 For additional help, consult the documentation links or join the Discord support server.

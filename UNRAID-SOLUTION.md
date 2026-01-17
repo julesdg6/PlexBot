@@ -104,7 +104,7 @@ Here are the definitive answers to all Unraid Docker configuration questions:
 | **Repository** | `ghcr.io/julesdg6/plexbot:combined` | `ghcr.io/julesdg6/plexbot:latest` | `ghcr.io/lavalink-devs/lavalink:4` |
 | **Registry URL** | `https://ghcr.io` | `https://ghcr.io` | `https://ghcr.io` |
 | **Icon URL** | `https://raw.githubusercontent.com/julesdg6/plexbot/main/Images/plexbot-unraid-icon.png` | Same | Lavalink icon |
-| **WebUI** | *(leave empty)* | *(leave empty)* | *(leave empty)* |
+| **WebUI** | `http://[IP]:[PORT:4303]/` (status dashboard) | *(leave empty)* | *(leave empty)* |
 | **Extra Parameters** | *(leave empty)* | `--network=plexbot-network` | `--network=plexbot-network` |
 | **Post Arguments** | *(leave empty)* | *(leave empty)* | *(leave empty)* |
 | **Network Type** | `Bridge` | `Bridge` | `Bridge` |

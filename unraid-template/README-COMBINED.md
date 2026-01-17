@@ -14,7 +14,7 @@ When adding this container in Unraid, you'll be asked these questions. Here are 
 | **Repository** | `ghcr.io/julesdg6/plexbot:combined` |
 | **Registry URL** | `https://ghcr.io` |
 | **Icon URL** | `https://raw.githubusercontent.com/julesdg6/plexbot/main/Images/plexbot-unraid-icon.png` |
-| **WebUI** | *(leave empty)* |
+| **WebUI** | `http://[IP]:[PORT:4303]/` (status dashboard) |
 | **Extra Parameters** | *(leave empty)* |
 | **Post Arguments** | *(leave empty)* |
 | **Network Type** | `Bridge` |

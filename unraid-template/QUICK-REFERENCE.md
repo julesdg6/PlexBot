@@ -42,10 +42,10 @@ When configuring PlexBot as a Docker container in Unraid, you'll be asked these 
 - Makes the container easy to identify
 
 ### WebUI:
-**Answer:** *(Leave empty)*
+**Answer:** `http://[SERVER_IP]:4303/` (status dashboard)
 
-- PlexBot has no web interface
-- All interaction is through Discord
+- PlexBot exposes a read-only status dashboard on port 4303; the Unraid template includes the `<WebUI>` entry so the globe icon appears automatically.
+- Use this page to confirm the required `DISCORD_TOKEN`, `PLEX_URL`, `PLEX_TOKEN`, and `LAVALINK_SERVER_PASSWORD` settings are configured correctly.
 
 ### Extra Parameters:
 **Answer:** *(Leave empty for all-in-one)*

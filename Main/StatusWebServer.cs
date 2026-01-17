@@ -14,7 +14,7 @@ public class StatusWebServer : IHostedService, IDisposable
 
     public StatusWebServer()
     {
-        _port = EnvConfig.GetInt("STATUS_WEB_PORT", 8080);
+        _port = EnvConfig.GetInt("STATUS_WEB_PORT", 4303);
     }
 
     public Task StartAsync(CancellationToken cancellationToken)

@@ -9,9 +9,9 @@ PlexBot now includes a built-in web interface that helps you configure and monit
 After starting the PlexBot container in Unraid:
 
 1. Click the **WebUI** button in your Docker dashboard (looks like a globe icon)
-2. OR visit `http://YOUR_SERVER_IP:8080` in your web browser
+2. OR visit `http://YOUR_SERVER_IP:4303` in your web browser
 
-The web UI is accessible on port **8080** by default.
+The web UI is accessible on port **4303** by default. Port 4303 lives in the private/dynamic range, so it is rarely claimed by other services; if you prefer, you can remap the host port to another rarely-used number such as 1210.
 
 ## What the Web UI Shows
 
@@ -44,6 +44,8 @@ If any required settings are missing, the web UI shows:
 - 📚 Links to setup documentation
 - 💡 Instructions for configuring in Unraid
 
+When you edit the container in Unraid, click **Show more settings...** (or the **Add another Path, Port, Variable, Label or Device** link) to reveal the environment variables such as `DISCORD_TOKEN`, `PLEX_URL`, `PLEX_TOKEN`, and `LAVALINK_SERVER_PASSWORD`. The status dashboard highlights which of those required fields still need values.
+
 ## How to Fix Configuration Issues
 
 ### Missing Configuration
@@ -59,13 +61,13 @@ If you see missing configuration warnings:
 
 ### Port Conflicts
 
-If port 8080 or 2333 is already in use by another application:
+If port 4303 or 2333 is already in use by another application:
 
 1. In Unraid, go to **Docker** tab
 2. Click your PlexBot container  
 3. Click **Edit**
 4. Scroll down to the **Port Mappings** section
-5. Change the **Host Port** (left side) to an available port (e.g., 8081, 8082, etc.)
+5. Change the **Host Port** (left side) to an available port (e.g., 4304, 4305, etc.)
 6. Keep the **Container Port** (right side) at the default value
 7. Click **Apply** to restart the container
 8. Access the web UI using the new port: `http://YOUR_SERVER_IP:[New Host Port]`
@@ -100,14 +102,14 @@ All port numbers are fully configurable in the Unraid UI to avoid conflicts with
 
 | Port Type | Default | Configurable | Description |
 |-----------|---------|--------------|-------------|
-| **Status Web UI Host Port** | 8080 | Yes (always visible) | The port on your Unraid server to access the web interface |
-| **Status Web UI Container Port** | 8080 | Yes (advanced) | The port inside the container where the web server runs |
+| **Status Web UI Host Port** | 4303 | Yes (always visible) | The port on your Unraid server to access the web interface |
+| **Status Web UI Container Port** | 4303 | Yes (advanced) | The port inside the container where the web server runs |
 | **Lavalink Host Port** | 2333 | Yes (advanced) | The port on your Unraid server for Lavalink (typically not exposed) |
 | **Lavalink Container Port** | 2333 | Yes (advanced, via LAVALINK_SERVER_PORT) | The port inside the container where Lavalink runs |
 
 **How Port Mapping Works:**
-- **Host Port** → **Container Port** (e.g., 8080 → 8080)
-- If port 8080 is already in use on your server, change the **Host Port** to something else (e.g., 8081)
+- **Host Port** → **Container Port** (e.g., 4303 → 4303)
+- If port 4303 is already in use on your server, change the **Host Port** to something else (e.g., 4304)
 - The container port can usually stay at the default unless you have specific requirements
 - The web interface will be accessible at `http://YOUR_SERVER_IP:[Host Port]`
 
@@ -139,8 +141,8 @@ And displays these optional variables:
 The `plexbot-combined.xml` template now includes:
 
 ```xml
-<WebUI>http://[IP]:[PORT:8080]/</WebUI>
-<Config Name="Status Web UI Port" Target="8080" Default="8080" Mode="tcp" 
+<WebUI>http://[IP]:[PORT:4303]/</WebUI>
+<Config Name="Status Web UI Port" Target="4303" Default="4303" Mode="tcp" 
         Description="Web interface port for monitoring container status and configuration." 
         Type="Port" Display="always" Required="true" Mask="false"/>
 ```
@@ -152,7 +154,7 @@ This makes the WebUI button appear automatically in Unraid's Docker dashboard.
 1. `Main/StatusWebServer.cs` - New web server implementation
 2. `Main/BotHostedService.cs` - Graceful error handling  
 3. `Main/ServiceRegistration.cs` - Register web server as hosted service
-4. `Install/Docker/dockerfile.combined` - Expose port 8080, fix supervisor config
+4. `Install/Docker/dockerfile.combined` - Expose port 4303, fix supervisor config
 5. `unraid-template/plexbot-combined.xml` - Add WebUI and port configuration
 
 ## Summary

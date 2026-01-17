@@ -170,7 +170,7 @@ RUN echo '[program:plexbot]' > /etc/supervisor/conf.d/plexbot.conf && \
     echo 'priority=200' >> /etc/supervisor/conf.d/plexbot.conf
 
 # Expose Lavalink port and status web UI port
-EXPOSE 2333 8080
+EXPOSE 2333 4303
 
 # Start supervisor to manage both services
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

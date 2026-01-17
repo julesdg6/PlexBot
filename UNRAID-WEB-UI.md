@@ -46,6 +46,8 @@ If any required settings are missing, the web UI shows:
 
 ## How to Fix Configuration Issues
 
+### Missing Configuration
+
 If you see missing configuration warnings:
 
 1. In Unraid, go to **Docker** tab
@@ -53,6 +55,20 @@ If you see missing configuration warnings:
 3. Click **Edit**
 4. Fill in the missing environment variables shown in the web UI
 5. Click **Apply** to restart the container
+6. Refresh the web UI to verify all settings are green ✅
+
+### Port Conflicts
+
+If port 8080 or 2333 is already in use by another application:
+
+1. In Unraid, go to **Docker** tab
+2. Click your PlexBot container  
+3. Click **Edit**
+4. Scroll down to the **Port Mappings** section
+5. Change the **Host Port** (left side) to an available port (e.g., 8081, 8082, etc.)
+6. Keep the **Container Port** (right side) at the default value
+7. Click **Apply** to restart the container
+8. Access the web UI using the new port: `http://YOUR_SERVER_IP:[New Host Port]`
 6. Refresh the web UI to verify all settings are green ✅
 
 ## Solved Problem: No More Crash Loops!
@@ -79,12 +95,22 @@ Users couldn't tell what was wrong without digging through logs.
 
 ## Technical Details
 
-### Port Information
+### Port Configuration
 
-| Port | Purpose | Required |
-|------|---------|----------|
-| 8080 | Status Web UI | Yes (always visible) |
-| 2333 | Lavalink (internal) | Advanced only |
+All port numbers are fully configurable in the Unraid UI to avoid conflicts with other applications:
+
+| Port Type | Default | Configurable | Description |
+|-----------|---------|--------------|-------------|
+| **Status Web UI Host Port** | 8080 | Yes (always visible) | The port on your Unraid server to access the web interface |
+| **Status Web UI Container Port** | 8080 | Yes (advanced) | The port inside the container where the web server runs |
+| **Lavalink Host Port** | 2333 | Yes (advanced) | The port on your Unraid server for Lavalink (typically not exposed) |
+| **Lavalink Container Port** | 2333 | Yes (advanced, via LAVALINK_SERVER_PORT) | The port inside the container where Lavalink runs |
+
+**How Port Mapping Works:**
+- **Host Port** → **Container Port** (e.g., 8080 → 8080)
+- If port 8080 is already in use on your server, change the **Host Port** to something else (e.g., 8081)
+- The container port can usually stay at the default unless you have specific requirements
+- The web interface will be accessible at `http://YOUR_SERVER_IP:[Host Port]`
 
 ### Environment Variables
 

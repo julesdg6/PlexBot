@@ -32,12 +32,13 @@ This directory contains everything needed to run PlexBot on unRAID:
    - Match Lavalink password from step 1
    - Apply
 
-**Method 2: Add Repository to Community Applications**
+**Method 2: Manual Template Files**
 
-1. Apps → App Install Options
-2. Add repository URL: `https://github.com/julesdg6/plexbot`
-3. Search for "PlexBot" in Apps tab
-4. Install PlexBot-Lavalink first, then PlexBot
+1. Download both XML templates from GitHub
+2. Copy them to `/boot/config/plugins/dockerMan/templates-user/` on your unRAID server
+3. Go to Docker tab → Add Container
+4. Select templates from dropdown
+5. Install PlexBot-Lavalink first, then PlexBot
 
 ## 📋 Required Configuration
 

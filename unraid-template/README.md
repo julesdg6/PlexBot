@@ -37,11 +37,17 @@ If the templates are not yet in Community Applications:
 ### Option 3: Template URL (Direct Install)
 
 1. In unRAID Docker tab, click **Add Container**
-2. Set **Template repositories** to:
+2. At the bottom of the page, paste this URL into the **Template repositories** field:
    ```
-   https://github.com/julesdg6/plexbot
+   https://raw.githubusercontent.com/julesdg6/plexbot/main/unraid-template/plexbot.xml
    ```
-3. Click on template dropdown and search for PlexBot templates
+3. Click outside the field or press Enter - the template will load automatically
+4. Configure the required settings and click **Apply**
+
+Repeat the process with the Lavalink template URL (install Lavalink first):
+   ```
+   https://raw.githubusercontent.com/julesdg6/plexbot/main/unraid-template/plexbot-lavalink.xml
+   ```
 
 ## Required Configuration
 
@@ -129,7 +135,24 @@ If you experience connection issues:
 - Verify network connectivity to Plex server
 
 ### "docker: invalid reference format" error
-If you're trying to run PlexBot manually with `docker run` and getting this error, ensure you're using the correct image name:
+
+This error can occur in two scenarios:
+
+#### When using Option 3 (Template URL):
+Make sure you're using the **raw XML file URL**, not the repository URL:
+
+**❌ INCORRECT:**
+```
+https://github.com/julesdg6/plexbot
+```
+
+**✅ CORRECT:**
+```
+https://raw.githubusercontent.com/julesdg6/plexbot/main/unraid-template/plexbot.xml
+```
+
+#### When running manually with `docker run`:
+Ensure you're using the correct Docker image name:
 
 **❌ INCORRECT:**
 ```bash
@@ -141,9 +164,9 @@ docker run ... 'https://github.com/julesdg6/plexbot'
 docker run ... ghcr.io/julesdg6/plexbot:latest
 ```
 
-**Note:** The GitHub repository URL (`https://github.com/julesdg6/plexbot`) is NOT a Docker image. The Docker image is hosted on GitHub Container Registry at `ghcr.io/julesdg6/plexbot:latest`.
+**Note:** The GitHub repository URL is NOT a Docker image. The Docker image is hosted on GitHub Container Registry at `ghcr.io/julesdg6/plexbot:latest`.
 
-For unRAID users, it's recommended to use the unRAID template instead of running `docker run` manually. The templates handle all the configuration automatically.
+For unRAID users, it's recommended to use the unRAID template (Option 1, 2, or 3 above) instead of running `docker run` manually. The templates handle all the configuration automatically.
 
 ## Additional Resources
 
